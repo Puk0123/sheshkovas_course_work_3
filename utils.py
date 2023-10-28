@@ -21,3 +21,9 @@ def get_operations_executed(data):
             if 'from' in operation:
                 operation_with_from.append(operation)
     return operation_with_from
+
+
+def get_last_num_operations(operations_with_from, num_of_operations):
+    operations_sort = sorted(operations_with_from, key=lambda operation: operation["date"], reverse=True)
+    last_five_operations = operations_sort[0:num_of_operations]
+    return last_five_operations
