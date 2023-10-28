@@ -38,3 +38,15 @@ def get_operations_formatted(last_five_operations):
         if "from" in operation:
             payer = operation["from"].split()
             payment_method = payer.pop(-1)
+            if payer[0] == 'Счет':
+                payment_method_from = f"**{payment_method[-4:]}"
+            else:
+                payment_method_from = f"{payment_method[:4]} {payment_method[4:6]}** **** {payment_method[-4:]}"
+            payer_info = " ".join(payer)
+        recipient = f"{operation['to'].split()[0]} **{operation['to'][-4:]}"
+        operation_amount = f"{operation['operationAmount']['amount']} {operation['operationAmount']['currency']['name']}"
+        operations_formatted_list.append(f"""
+                    {date} {description}
+                    {payer_info} {payment_method_from}->{recipient}
+                    {operation_amount} """)
+    return operations_formatted_list
